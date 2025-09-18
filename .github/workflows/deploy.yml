@@ -1,0 +1,43 @@
+
+name: Deploy to Server
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: lordemmag/node-service:latest
+
+    - name: Deploy to server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        script: |
+          docker pull lordemmag/node-service:latest
+          docker stop node-service || true
+          docker rm node-service || true
+          docker run -d --name node-service -p 3000:3000 \
+            -e SECRET_MESSAGE="${{ secrets.SECRET_MESSAGE }}" \
+            -e USERNAME="${{ secrets.USERNAME }}" \
+            -e PASSWORD="${{ secrets.PASSWORD }}" \
+            lordemmag/node-service:latest
