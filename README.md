@@ -152,4 +152,4 @@ This project uses **GitHub Actions** to automatically deploy the app to an **AWS
 - Contact the project owner for help!
 
 ## License
-This project is for learning purposes and has no specific license.
+This is an open-source project from "https://roadmap.sh/projects/dockerized-service-deployment" for learning purposes
