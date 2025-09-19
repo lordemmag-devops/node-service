@@ -1,20 +1,25 @@
-
 {
   "name": "service",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "scripts": {
-  	"start": "node server.js"
-	}		
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "basic-auth": "^2.0.1",
     "dotenv": "^17.2.2",
     "express": "^5.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lordemmag-devops/node-service.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lordemmag-devops/node-service/issues"
+  },
+  "homepage": "https://github.com/lordemmag-devops/node-service#readme",
+  "description": ""
 }
